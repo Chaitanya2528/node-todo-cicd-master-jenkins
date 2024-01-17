@@ -14,8 +14,8 @@ pipeline {
         }
         stage('Push'){
             steps{
-                withCredentials([usernamePassword(credentialsId: 'dckr_pat_YkZBFcZ9kLCTJqYi450j2roCXuA', passwordVariable: 'ThippuChaitu#2528', usernameVariable: 'chaitanyaveeksha')]) {
-        	     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
+                withCredentials([usernamePassword(credentialsId: 'dockerHub', passwordVariable: 'ThippuChaitu#2528', usernameVariable: 'chaitanyaveeksha')]) {
+        	     sh "docker login -u $chaitanyaveeksha -p $ThippuChaitu#2528"
                  sh 'docker push chaitanyaveeksha/myimage:latest'
                 }
             }
