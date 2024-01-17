@@ -14,10 +14,12 @@ pipeline {
         }
         stage('Push'){
             steps{
-        	     sh "docker login -u $chaitanyaveeksha -p $ThippuChaitu#2528"
+                withCredentials([usernamePassword(credentialsId: 'docker', passwordVariable: 'ThippuChaitu#2528', usernameVariable: 'chaitanyaveeksha')]) {
+        	     sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                  sh 'docker push chaitanyaveeksha/myimage:latest'
                 }
             }
+        }
         stage('Deploy'){
             steps{
                 sh "docker-compose down && docker-compose up -d"
