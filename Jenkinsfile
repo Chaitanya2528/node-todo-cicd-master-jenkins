@@ -4,6 +4,8 @@ pipeline {
 
     environment {
         DOCKERHUB_CREDENTIALS = credentials('babydoc')
+        dockerHubUser='chaitanyaveeksha'
+        dockerHubPassword='KannaBaby#2528'
     }
     
     stages{
@@ -19,12 +21,10 @@ pipeline {
         }
         stage('Push'){
             steps{
-                withCredentials([usernamePassword(credentialsId: ${DOCKERHUB_CREDENTIALS}, passwordVariable: 'KannaBaby#2528', usernameVariable: 'chaitanyaveeksha')]) {
-        	     sh "docker login -u chaitanyaveeksha"
+                sh "docker login -u ${env.dockerHubUser} -p ${env.dockerHubPassword}"
                  sh 'docker push chaitanyaveeksha/myimage:latest'
                 }
             }
-        }
         stage('Deploy'){
             steps{
                 sh "docker-compose down && docker-compose up -d"
